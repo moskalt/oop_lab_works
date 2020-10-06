@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "tpoint.h"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "Lab");
