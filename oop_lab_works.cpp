@@ -1,8 +1,11 @@
 #include "tpoint.h"
 #include <SFML/Graphics.hpp>
+#include <ctime>
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(1000, 1000), "tPoint");
+    srand(time(nullptr));
+    tPoint *point_array = new tPoint[100];
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "tPoint");
     window.setFramerateLimit(60);
 
     while (window.isOpen()) {
@@ -16,7 +19,10 @@ int main() {
             }
         }
         window.clear(sf::Color::Black);
-        // window.draw(...);
+        for (size_t i = 0; i < 100; i++) {
+            window.draw(point_array[i].getPoint());
+        }
+        //window.draw(point.getPoint());
         window.display();
     }
     return 0;
