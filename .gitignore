@@ -9,6 +9,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+oop_lab_works.*
+!oop_lab_works.cpp
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
