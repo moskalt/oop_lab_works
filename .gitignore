@@ -11,6 +11,9 @@
 *.sln.docstates
 oop_lab_works.*
 !oop_lab_works.cpp
+./CMakeLists.txt
+./cmake-build-debug
+./.idea
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
