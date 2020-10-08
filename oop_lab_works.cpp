@@ -7,22 +7,31 @@ int main() {
     tPoint *point_array = new tPoint[100];
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "tPoint");
     window.setFramerateLimit(60);
-    while (window.isOpen()) {
-        sf::Event event{};
-        while (window.pollEvent(event)) {
-            if (event.key.code == sf::Keyboard::Escape) {
-                window.close();
+    sf::Event event{};
+    sf::Clock timer;
+    sf::Time tickRate;
+    sf::Vector2f movement(50.0, 0.0);
+    sf::CircleShape circle = point_array[0].getPoint();
+    circle.setPosition(0, 500);
+    while (window.isOpen()) 
+        {   
+            while (window.pollEvent(event)) {
+                if (event.key.code == sf::Keyboard::Escape) {
+                    window.close();
+                }
+                if (event.type == sf::Event::Closed) {
+                    window.close();
+                }
             }
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-            window.display();
+            tickRate = timer.restart();
+            circle.move(movement * ((float) tickRate.asMilliseconds() / 1000));
             window.clear(sf::Color::Black);
-            for (size_t i = 0; i < 100; i++) {
-                window.draw(point_array[i].getPoint());
-                window.display();
-            }
+            window.draw(circle);
+            window.display();
+            
+            /*if (event.type == sf::Event::Closed) {
+                window.close();
+            }*/
         }
-    }
     return 0;
 }

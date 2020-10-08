@@ -7,14 +7,14 @@ const int windowHeight = 700;
 class tPoint {
 private:
     sf::Color m_color;
-    int m_x;
-    int m_y;
+    float m_x;
+    float m_y;
     sf::CircleShape circle;
 
     static int getRandomNum() {
         return rand() % 256;
     }
-    static int getRandomNum(int windowSize) {
+    static float getRandomNum(int windowSize) {
         return rand() % windowSize;
     }
     public:
@@ -30,9 +30,6 @@ private:
     };
 
     sf::CircleShape getPoint() {
-        m_x = m_x + 2;
-        m_y = m_y + 2;
-        circle.setPosition(m_x, m_y);
         return circle;
     }
 
