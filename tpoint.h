@@ -30,6 +30,9 @@ private:
     };
 
     sf::CircleShape getPoint() {
+        m_x = m_x + 2;
+        m_y = m_y + 2;
+        circle.setPosition(m_x, m_y);
         return circle;
     }
 
