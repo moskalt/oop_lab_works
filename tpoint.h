@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
+#include <ctime>
 const int windowWidth = 1200;
 const int windowHeight = 700;
 
@@ -10,6 +11,7 @@ private:
     float m_x;
     float m_y;
     sf::CircleShape circle;
+    sf::Vector2f movement_var = {4.0, 4.0};
 
     static int getRandomNum() {
         return rand() % 256;
@@ -33,4 +35,31 @@ private:
         return circle;
     }
 
+    void setRandomMovement() {
+        size_t random_x = rand() % 2;
+        size_t random_y = rand() % 2;
+        if (random_x == 0) {
+            movement_var.x = -1 * movement_var.x;
+        }
+        if (random_y == 0) {
+            movement_var.y = -1 * movement_var.y;
+        }
+    }
+    void tickrateMove() {
+        sf::Clock timer;
+        sf::Time tickRate;
+        tickRate = timer.restart();
+        sf::Vector2f currentPosition = circle.getPosition();
+        if (currentPosition.x > windowWidth - 2 * circle.getRadius()) {
+            movement_var.x = -1 * movement_var.x;
+        } else if (currentPosition.x - 2 * circle.getRadius() < 0) {
+            movement_var.x = -1 * movement_var.x;
+        }
+        if (currentPosition.y > windowHeight - 2 * circle.getRadius()) {
+            movement_var.y = -1 * movement_var.y;
+        } else if (currentPosition.y - 2 * circle.getRadius() < 0) {
+            movement_var.y = -1 * movement_var.y;
+        }
+        circle.move(movement_var.x, movement_var.y);
+    }
 };

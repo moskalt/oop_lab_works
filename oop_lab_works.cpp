@@ -1,6 +1,5 @@
 #include "tpoint.h"
-#include <SFML/Graphics.hpp>
-#include <ctime>
+#include <iostream>
 
 int main() {
     srand(time(nullptr));
@@ -9,12 +8,20 @@ int main() {
     window.setFramerateLimit(60);
     sf::Event event{};
     sf::Clock timer;
-    sf::Time tickRate;
-    sf::Vector2f movement(50.0, 0.0);
-    sf::CircleShape circle = point_array[0].getPoint();
-    circle.setPosition(0, 500);
+    size_t check;
+    std::cout << "1: no random "
+              << std::endl
+              << "2: random " << std::endl;
+    std::cin >> check;
+    if (check == 2) {
+        for (size_t i = 0; i < 100; i++) {
+            point_array[i].setRandomMovement();
+        }
+    }
+    size_t counter = 0;
     while (window.isOpen()) 
         {   
+        counter++;
             while (window.pollEvent(event)) {
                 if (event.key.code == sf::Keyboard::Escape) {
                     window.close();
@@ -22,16 +29,18 @@ int main() {
                 if (event.type == sf::Event::Closed) {
                     window.close();
                 }
+            }   
+            if (counter % 50 == 0 && check == 2) {
+                for (size_t i = 0; i < 100; i++) {
+                    point_array[i].setRandomMovement();
+                }
             }
-            tickRate = timer.restart();
-            circle.move(movement * ((float) tickRate.asMilliseconds() / 1000));
             window.clear(sf::Color::Black);
-            window.draw(circle);
+            for (size_t i = 0; i < 100; i++) {
+                point_array[i].tickrateMove();
+                window.draw(point_array[i].getPoint());
+            }
             window.display();
-            
-            /*if (event.type == sf::Event::Closed) {
-                window.close();
-            }*/
         }
     return 0;
 }
