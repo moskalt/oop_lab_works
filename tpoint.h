@@ -46,9 +46,6 @@ private:
         }
     }
     void tickrateMove() {
-        sf::Clock timer;
-        sf::Time tickRate;
-        tickRate = timer.restart();
         sf::Vector2f currentPosition = circle.getPosition();
         if (currentPosition.x > windowWidth - 2 * circle.getRadius()) {
             movement_var.x = -1 * movement_var.x;
