@@ -5,21 +5,14 @@ int main() {
     srand(time(nullptr));
     auto *pointsArray = new tPoint<sf::CircleShape>[20];
     auto *circleArray = new tCircle<sf::CircleShape>[20];
+    auto *ellipseArray = new tEllipse<sf::CircleShape>[20];
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "tPoint");
     window.setFramerateLimit(60);
     sf::Event event{};
     sf::Clock timer;
     size_t check;
-    std::cout << "1: no random "
-              << std::endl
-              << "2: random " << std::endl;
-    std::cin >> check;
-    if (check == 2) {
-        for (size_t i = 0; i < 20; i++) {
-            pointsArray[i].setRandomMovement();
-            circleArray[i].setRandomMovement();
-        }
-    }
+    size_t random_object;
+    check = 1;
     size_t counter = 0;
     while (window.isOpen()) {
         counter++;
@@ -27,14 +20,26 @@ int main() {
             if (event.key.code == sf::Keyboard::Escape) {
                 window.close();
             }
+            if (event.key.code == sf::Keyboard::F1) {
+                check = 2;
+            }
+            if (event.key.code == sf::Keyboard::F2) {
+                check = 1;
+            }
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
         }
         if (counter % 50 == 0 && check == 2) {
             for (size_t i = 0; i < 20; i++) {
-                pointsArray[i].setRandomMovement();
-                circleArray[i].setRandomMovement();
+                random_object = rand() % 3;
+                if (random_object == 2) {
+                    pointsArray[i].setRandomMovement();
+                } else if (random_object == 1) {
+                    circleArray[i].setRandomMovement();
+                } else {
+                    ellipseArray[i].setRandomMovement();
+                }
             }
         }
         window.clear(sf::Color::Black);
@@ -43,10 +48,13 @@ int main() {
             window.draw(pointsArray[i].getFigure());
             circleArray[i].setCircle(circleArray[i].tickRateMove(circleArray[i].getCircle()));
             window.draw(circleArray[i].getCircle());
+            ellipseArray[i].setEllipse(ellipseArray[i].tickRateMove(ellipseArray[i].getEllipse()));
+            window.draw(ellipseArray[i].getEllipse());
         }
         window.display();
     }
     delete[] circleArray;
     delete[] pointsArray;
+    delete[] ellipseArray;
     return 0;
 }
