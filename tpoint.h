@@ -5,20 +5,21 @@
 const int windowWidth = 1200;
 const int windowHeight = 700;
 
+template<class T>
 class tPoint {
 private:
     // members
     sf::Color m_color;
     float m_x;
     float m_y;
-    sf::CircleShape m_circle;
+    T m_circle;
     sf::Vector2f m_movementVar = {4.0, 4.0};
     // methods
     static sf::Uint8 calcRandColor() {
         return rand() % 256;
     }
     static float getRandomNum(int windowSize) {
-        return rand() % windowSize;
+        return (float) (rand() % windowSize);
     }
 
 public:
@@ -47,14 +48,10 @@ public:
     }
     void tickRateMove() {
         sf::Vector2f currentPosition = m_circle.getPosition();
-        if (currentPosition.x > windowWidth - 2 * m_circle.getRadius()) {
-            m_movementVar.x = -1 * m_movementVar.x;
-        } else if (currentPosition.x - 2 * m_circle.getRadius() < 0) {
+        if (currentPosition.x > windowWidth - 2 * m_circle.getRadius() || currentPosition.x - 2 * m_circle.getRadius() < 0) {
             m_movementVar.x = -1 * m_movementVar.x;
         }
-        if (currentPosition.y > windowHeight - 2 * m_circle.getRadius()) {
-            m_movementVar.y = -1 * m_movementVar.y;
-        } else if (currentPosition.y - 2 * m_circle.getRadius() < 0) {
+        if (currentPosition.y > windowHeight - 2 * m_circle.getRadius() || currentPosition.y - 2 * m_circle.getRadius() < 0) {
             m_movementVar.y = -1 * m_movementVar.y;
         }
         m_circle.move(m_movementVar.x, m_movementVar.y);
@@ -62,10 +59,12 @@ public:
 };
 
 
-class tCircle:protected tPoint {
-
+class tCircle : protected tPoint<sf::CircleShape> {
+private:
+public:
+    tCircle() {
+    }
 };
 
-class tEllipse : protected tPoint {
-
+class tEllipse : protected tPoint<sf::CircleShape> {
 };

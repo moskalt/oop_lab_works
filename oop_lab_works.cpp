@@ -19,29 +19,28 @@ int main() {
         }
     }
     size_t counter = 0;
-    while (window.isOpen()) 
-        {   
+    while (window.isOpen()) {
         counter++;
-            while (window.pollEvent(event)) {
-                if (event.key.code == sf::Keyboard::Escape) {
-                    window.close();
-                }
-                if (event.type == sf::Event::Closed) {
-                    window.close();
-                }
-            }   
-            if (counter % 50 == 0 && check == 2) {
-                for (size_t i = 0; i < 100; i++) {
-                    point_array[i].setRandomMovement();
-                }
+        while (window.pollEvent(event)) {
+            if (event.key.code == sf::Keyboard::Escape) {
+                window.close();
             }
-            window.clear(sf::Color::Black);
-            for (size_t i = 0; i < 100; i++) {
-                point_array[i].tickRateMove();
-                window.draw(point_array[i].getPoint());
+            if (event.type == sf::Event::Closed) {
+                window.close();
             }
-            window.display();
         }
-        delete[] point_array;
-        return 0;
+        if (counter % 50 == 0 && check == 2) {
+            for (size_t i = 0; i < 100; i++) {
+                point_array[i].setRandomMovement();
+            }
+        }
+        window.clear(sf::Color::Black);
+        for (size_t i = 0; i < 100; i++) {
+            point_array[i].tickRateMove();
+            window.draw(point_array[i].getPoint());
+        }
+        window.display();
+    }
+    delete[] point_array;
+    return 0;
 }
