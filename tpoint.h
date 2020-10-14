@@ -66,6 +66,6 @@ class tCircle:protected tPoint {
 
 };
 
-class tElipse : protected tPoint {
+class tEllipse : protected tPoint {
 
 };
