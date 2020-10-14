@@ -5,13 +5,14 @@
 const int windowWidth = 1200;
 const int windowHeight = 700;
 
+template<class T>
 class tPoint {
 private:
     // members
     sf::Color m_color;
     float m_x;
     float m_y;
-    sf::CircleShape m_circle;
+    T m_circle;
     sf::Vector2f m_movementVar = {4.0, 4.0};
     // methods
     static sf::Uint8 calcRandColor() {
@@ -62,10 +63,12 @@ public:
 };
 
 
-class tCircle:protected tPoint {
-
+class tCircle : protected tPoint<sf::CircleShape> {
+private:
+public:
+    tCircle() {
+    }
 };
 
-class tEllipse : protected tPoint {
-
+class tEllipse : protected tPoint<sf::CircleShape> {
 };
