@@ -4,6 +4,7 @@
 #include <ctime>
 const int windowWidth = 1200;
 const int windowHeight = 700;
+template<class T>
 
 class tPoint {
 private:
@@ -11,7 +12,7 @@ private:
     sf::Color m_color;
     float m_x;
     float m_y;
-    sf::CircleShape m_circle;
+    T m_circle;
     sf::Vector2f m_movementVar = {4.0, 4.0};
     // methods
     static sf::Uint8 calcRandColor() {
@@ -59,4 +60,6 @@ public:
         }
         m_circle.move(m_movementVar.x, m_movementVar.y);
     }
+};
+class tCircle {
 };
