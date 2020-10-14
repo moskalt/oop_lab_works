@@ -3,7 +3,7 @@
 
 int main() {
     srand(time(nullptr));
-    tPoint *point_array = new tPoint[100];
+    auto *point_array = new tPoint[100];
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "tPoint");
     window.setFramerateLimit(60);
     sf::Event event{};
@@ -37,10 +37,11 @@ int main() {
             }
             window.clear(sf::Color::Black);
             for (size_t i = 0; i < 100; i++) {
-                point_array[i].tickrateMove();
+                point_array[i].tickRateMove();
                 window.draw(point_array[i].getPoint());
             }
             window.display();
         }
-    return 0;
+        delete[] point_array;
+        return 0;
 }
