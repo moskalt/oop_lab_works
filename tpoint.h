@@ -49,15 +49,15 @@ public:
             m_movementVar.y = -1 * m_movementVar.y + random_y;
         }
     }
-    void tickRateMove(T object) {   
-        sf::Vector2f currentPosition = object.figure.getPosition();
-        if (currentPosition.x > windowWidth - 2 * object.getRadius() || currentPosition.x - 2 * object.getRadius() < 0) {
+    void tickRateMove(T* object) {   
+        sf::Vector2f currentPosition = object->getPosition();
+        if (currentPosition.x > windowWidth - 2 * object->getRadius() || currentPosition.x - 2 * object->getRadius() < 0) {
             m_movementVar.x = -1 * m_movementVar.x;
         }
-        if (currentPosition.y > windowHeight - 2 * object.getRadius() || currentPosition.y - 2 * object.getRadius() < 0) {
+        if (currentPosition.y > windowHeight - 2 * object->getRadius() || currentPosition.y - 2 * object->getRadius() < 0) {
             m_movementVar.y = -1 * m_movementVar.y;
         }
-        object.move(m_movementVar.x, m_movementVar.y);
+        object->move(m_movementVar.x, m_movementVar.y);
     }
 };
 
