@@ -15,8 +15,9 @@ int main() {
               << "2: random " << std::endl;
     std::cin >> check;
     if (check == 2) {
-        for (size_t i = 0; i < 100; i++) {
+        for (size_t i = 0; i < 20; i++) {
             pointsArray[i].setRandomMovement();
+            circleArray[i].setRandomMovement();
         }
     }
     size_t counter = 0;
@@ -33,21 +34,15 @@ int main() {
         if (counter % 50 == 0 && check == 2) {
             for (size_t i = 0; i < 20; i++) {
                 pointsArray[i].setRandomMovement();
-            }
-        }
-        if (counter % 50 == 0 && check == 2) {
-            for (size_t i = 0; i < 20; i++) {
                 circleArray[i].setRandomMovement();
             }
         }
         window.clear(sf::Color::Black);
         for (size_t i = 0; i < 20; i++) {
-            pointsArray[i].tickRateMove();
+            pointsArray[i].tickRateMove(pointsArray[i].getFigure());
             window.draw(pointsArray[i].getFigure());
-        }
-        for (size_t i = 0; i < 20; i++) {
-            circleArray[i].tickRateMove();
-            window.draw(circleArray[i].getFigure());
+            circleArray[i].tickRateMove(circleArray[i].getCircle());
+            window.draw(circleArray[i].getCircle());
         }
         window.display();
     }
