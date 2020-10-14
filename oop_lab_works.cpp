@@ -3,7 +3,8 @@
 
 int main() {
     srand(time(nullptr));
-    auto *point_array = new tPoint<sf::CircleShape>[20];
+    auto *pointsArray = new tPoint<sf::CircleShape>[20];
+    auto *circleArray = new tCircle<sf::CircleShape>[20];
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "tPoint");
     window.setFramerateLimit(60);
     sf::Event event{};
@@ -15,7 +16,7 @@ int main() {
     std::cin >> check;
     if (check == 2) {
         for (size_t i = 0; i < 100; i++) {
-            point_array[i].setRandomMovement();
+            pointsArray[i].setRandomMovement();
         }
     }
     size_t counter = 0;
@@ -30,17 +31,27 @@ int main() {
             }
         }
         if (counter % 50 == 0 && check == 2) {
-            for (size_t i = 0; i < 100; i++) {
-                point_array[i].setRandomMovement();
+            for (size_t i = 0; i < 20; i++) {
+                pointsArray[i].setRandomMovement();
+            }
+        }
+        if (counter % 50 == 0 && check == 2) {
+            for (size_t i = 0; i < 20; i++) {
+                circleArray[i].setRandomMovement();
             }
         }
         window.clear(sf::Color::Black);
-        for (size_t i = 0; i < 100; i++) {
-            point_array[i].tickRateMove();
-            window.draw(point_array[i].getFigure());
+        for (size_t i = 0; i < 20; i++) {
+            pointsArray[i].tickRateMove();
+            window.draw(pointsArray[i].getFigure());
+        }
+        for (size_t i = 0; i < 20; i++) {
+            circleArray[i].tickRateMove();
+            window.draw(circleArray[i].getFigure());
         }
         window.display();
     }
-    delete[] point_array;
+    delete[] circleArray;
+    delete[] pointsArray;
     return 0;
 }

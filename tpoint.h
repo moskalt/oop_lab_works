@@ -32,7 +32,7 @@ public:
     static sf::Uint8 calcRandColor() {
         return rand() % 256;
     }
-    sf::CircleShape getFigure() {
+    T getFigure() {
         return figure;
     }
     float getPointRadius() {
@@ -62,13 +62,14 @@ public:
 };
 
 template<class T>
-class tCircle : protected tPoint<sf::CircleShape> {
+class tCircle : public tPoint<sf::CircleShape> {
 private:
     T circle;
 
 
 public:
     tCircle() {
+
         circle.setFillColor(0, 0, 0);
         circle.setRadius(getPointRadius() * 5);
         circle.setOutlineColor(calcRandColor(), calcRandColor(), calcRandColor());
