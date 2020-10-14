@@ -15,10 +15,6 @@ private:
     T figure;
     float m_pointRadius = 10.f;
     sf::Vector2f m_movementVar = {4.0, 4.0};
-    // methods
-    static float getRandomNum(int windowSize) {
-        return (float) (rand() % windowSize);
-    }
 
 public:
     tPoint() {
@@ -29,10 +25,13 @@ public:
         figure.setRadius(m_pointRadius);
         figure.setPosition(m_x, m_y);
     };
+    static float getRandomNum(int windowSize) {
+        return (float) (rand() % windowSize);
+    }
     static sf::Uint8 calcRandColor() {
         return rand() % 256;
     }
-    T getFigure() {
+    sf::CircleShape getFigure() {
         return figure;
     }
     float getPointRadius() {
@@ -62,17 +61,21 @@ public:
 };
 
 template<class T>
-class tCircle : public tPoint<sf::CircleShape> {
+class tCircle : protected tPoint<sf::CircleShape> {
 private:
     T circle;
-
+    float m_x;
+    float m_y;
+    sf::Color m_color;
 
 public:
-    tCircle() {
-
+    tCircle(){
+        m_color = {calcRandColor(), calcRandColor(), calcRandColor()};
         circle.setFillColor(0, 0, 0);
         circle.setRadius(getPointRadius() * 5);
-        circle.setOutlineColor(calcRandColor(), calcRandColor(), calcRandColor());
+        circle.setOutlineColor(m_color);
+        m_x = getRandomNum(windowHeight);
+        m_y = getRandomNum(windowWidth);
     }
 };
 
