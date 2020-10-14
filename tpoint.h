@@ -60,3 +60,12 @@ public:
         m_circle.move(m_movementVar.x, m_movementVar.y);
     }
 };
+
+
+class tCircle:protected tPoint {
+
+};
+
+class tElipse : protected tPoint {
+
+};
