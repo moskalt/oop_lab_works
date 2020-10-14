@@ -19,7 +19,7 @@ private:
         return rand() % 256;
     }
     static float getRandomNum(int windowSize) {
-        return rand() % windowSize;
+        return (float) (rand() % windowSize);
     }
 
 public:
@@ -48,14 +48,10 @@ public:
     }
     void tickRateMove() {
         sf::Vector2f currentPosition = m_circle.getPosition();
-        if (currentPosition.x > windowWidth - 2 * m_circle.getRadius()) {
-            m_movementVar.x = -1 * m_movementVar.x;
-        } else if (currentPosition.x - 2 * m_circle.getRadius() < 0) {
+        if (currentPosition.x > windowWidth - 2 * m_circle.getRadius() || currentPosition.x - 2 * m_circle.getRadius() < 0) {
             m_movementVar.x = -1 * m_movementVar.x;
         }
-        if (currentPosition.y > windowHeight - 2 * m_circle.getRadius()) {
-            m_movementVar.y = -1 * m_movementVar.y;
-        } else if (currentPosition.y - 2 * m_circle.getRadius() < 0) {
+        if (currentPosition.y > windowHeight - 2 * m_circle.getRadius() || currentPosition.y - 2 * m_circle.getRadius() < 0) {
             m_movementVar.y = -1 * m_movementVar.y;
         }
         m_circle.move(m_movementVar.x, m_movementVar.y);
