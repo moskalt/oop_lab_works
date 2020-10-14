@@ -49,15 +49,16 @@ public:
             m_movementVar.y = -1 * m_movementVar.y + random_y;
         }
     }
-    void tickRateMove(T* object) {   
-        sf::Vector2f currentPosition = object->getPosition();
-        if (currentPosition.x > windowWidth - 2 * object->getRadius() || currentPosition.x - 2 * object->getRadius() < 0) {
+    T tickRateMove(T object) {
+        sf::Vector2f currentPosition = object.getPosition();
+        if (currentPosition.x > windowWidth - 2 * object.getRadius() || currentPosition.x - 2 * object.getRadius() < 0) {
             m_movementVar.x = -1 * m_movementVar.x;
         }
-        if (currentPosition.y > windowHeight - 2 * object->getRadius() || currentPosition.y - 2 * object->getRadius() < 0) {
+        if (currentPosition.y > windowHeight - 2 * object.getRadius() || currentPosition.y - 2 * object.getRadius() < 0) {
             m_movementVar.y = -1 * m_movementVar.y;
         }
-        object->move(m_movementVar.x, m_movementVar.y);
+        object.move(m_movementVar.x, m_movementVar.y);
+        return object;
     }
 };
 
@@ -71,7 +72,7 @@ private:
     sf::Color background_color;
 
 public:
-    tCircle(){
+    tCircle() {
         m_color = {calcRandColor(), calcRandColor(), calcRandColor()};
         background_color = {0, 0, 0, 1};
         circle.setFillColor(background_color);
@@ -82,9 +83,12 @@ public:
         m_y = getRandomNum(windowWidth);
         circle.setPosition(m_x, m_y);
     }
-    
+
     T getCircle() {
         return this->circle;
+    }
+    void setCircle(T temp) {
+        this->circle = temp;
     }
 };
 

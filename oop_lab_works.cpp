@@ -39,9 +39,9 @@ int main() {
         }
         window.clear(sf::Color::Black);
         for (size_t i = 0; i < 20; i++) {
-            pointsArray[i].tickRateMove(&(pointsArray[i].getFigure()));
+            pointsArray[i].tickRateMove(pointsArray[i].getFigure());
             window.draw(pointsArray[i].getFigure());
-            circleArray[i].tickRateMove(&(circleArray[i].getCircle()));
+            circleArray[i].setCircle(circleArray[i].tickRateMove(circleArray[i].getCircle()));
             window.draw(circleArray[i].getCircle());
         }
         window.display();
