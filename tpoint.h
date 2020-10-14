@@ -38,7 +38,9 @@ public:
     float getPointRadius() {
         return this->m_pointRadius;
     };
-
+    void setPoint(T temp) {
+        this->figure = temp;
+    }
     void setRandomMovement() {
         size_t random_x = rand() % 2;
         size_t random_y = rand() % 2;
