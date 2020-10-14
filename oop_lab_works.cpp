@@ -3,7 +3,7 @@
 
 int main() {
     srand(time(nullptr));
-    auto *point_array = new tPoint<sf::CircleShape>[100];
+    auto *point_array = new tPoint <sf::CircleShape>[100];
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "tPoint");
     window.setFramerateLimit(60);
     sf::Event event{};
