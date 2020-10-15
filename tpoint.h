@@ -13,7 +13,6 @@ sf::Color getOpacityBgc() {
 template<class T>
 class figure {
 private:
-    T m_figure;
     sf::Vector2f m_movementVar = {4.0, 0.0};
     float m_size;
 
@@ -35,24 +34,18 @@ public:
         }
         return res;
     }
-    // virtual methods
-    virtual float getObjectSize() {
-        return this->m_size;
-    }
-    virtual T getObject() {
-        return this->m_figure;
-    }
-    virtual void setObject(T temp) {
-        this->m_figure = temp;
-    }
     // setters
     void setRandomMovement() {
-        this->m_movementVar.x = 1 + random() % 6;
-        this->m_movementVar.y = 1 + random() % 6;
+        this->m_movementVar.x = 1 + rand() % 6;
+        this->m_movementVar.y = 1 + rand() % 6;
     }
     void setNormalMovement() {
         this->m_movementVar.x = 4;
         this->m_movementVar.y = 0;
+    }
+    // virtual
+    virtual float getObjectSize() {
+        return this->m_size;
     }
     // motion
     T objectMotion(T object) {
@@ -91,10 +84,10 @@ public:
     float getObjectSize() override {
         return this->m_pointRadius;
     }
-    sf::CircleShape getObject() override {
+    virtual sf::CircleShape getObject() {
         return this->m_point;
     }
-    void setObject(T temp) override {
+    virtual void setObject(T temp) {
         this->m_point = temp;
     }
     // getters
@@ -187,10 +180,10 @@ public:
         m_y = getRandomNum(windowHeight, m_lineLength);
         line.setPosition(m_x, m_y);
     }
-    T getObject() override {
+    virtual T getObject() {
         return this->line;
     }
-    void setObject(T temp) override {
+    virtual void setObject(T temp) {
         this->line = temp;
     }
     float getObjectSize() override {
