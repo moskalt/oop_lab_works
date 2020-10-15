@@ -161,6 +161,40 @@ public:
 };
 
 template<class T>
+class tTriangle : public tPoint<sf::CircleShape> {
+private:
+    T triangle;
+    float m_x;
+    float m_y;
+    sf::Color m_color;
+    float m_TriangleRadius = getPointRadius() * 10;
+
+public:
+    tTriangle() {
+        m_color = {calcRandColor(), calcRandColor(), calcRandColor()};
+        triangle.setFillColor(getOpacityBgc());
+        triangle.setRadius(m_TriangleRadius);
+        triangle.setPointCount(3);
+        triangle.setOutlineColor(m_color);
+        triangle.setOutlineThickness(2.0f);
+        triangle.setRotation(rand() % 180);
+        m_x = getRandomNum(windowWidth, m_TriangleRadius);
+        m_y = getRandomNum(windowHeight, m_TriangleRadius);
+        triangle.setPosition(m_x, m_y);
+    }
+    T getObject() override {
+        return this->triangle;
+    }
+    void setObject(T temp) override {
+        this->triangle = temp;
+    }
+    float getObjectSize() override {
+        return this->m_TriangleRadius;
+    }
+};
+
+
+template<class T>
 class tLine : public figure<sf::RectangleShape> {
 private:
     T line;
@@ -198,8 +232,8 @@ private:
     float m_x;
     float m_y;
     sf::Color m_color;
-    float m_lineLengh_rect = 70.f;
-    sf::Vector2f m_size = {40.f, m_lineLengh_rect};
+    float m_lineLength_rect = 70.f;
+    sf::Vector2f m_size = {40.f, m_lineLength_rect};
 
 public:
     tRect(){
@@ -209,8 +243,8 @@ public:
         rect.setOutlineThickness(2.f);
         rect.setFillColor(getOpacityBgc());
         rect.setRotation(rand() % 180);
-        m_x = getRandomNum(windowWidth, m_lineLengh_rect);
-        m_y = getRandomNum(windowHeight, m_lineLengh_rect);
+        m_x = getRandomNum(windowWidth, m_lineLength_rect);
+        m_y = getRandomNum(windowHeight, m_lineLength_rect);
         rect.setPosition(m_x, m_y);
     }
     T getObject() override {
@@ -220,20 +254,40 @@ public:
         this->rect = temp;
     }
     float getObjectSize() override {
-        return this->m_lineLengh_rect;
+        return this->m_lineLength_rect;
     }
 };
-//
-//template<class T>
-//class tRhombus : public tLine<sf::RectangleShape> {
-//private:
-//    T rhombus;
-//    float m_x;
-//    float m_y;
-//    sf::Color m_color;
-//    float m_ellipseRadius;
-//
-//public:
-//    tRhombus() {
-//    }
-//};
+
+template<class T>
+class tRhombus : public tLine<sf::RectangleShape> {
+private:
+    T rhombus;
+    float m_x;
+    float m_y;
+    sf::Color m_color;
+    float m_lineLength_rhombus = 50.f;
+    sf::Vector2f m_size{m_lineLength_rhombus, m_lineLength_rhombus};
+
+public:
+    tRhombus() {
+        rhombus.setSize(m_size);
+        m_color = {calcRandColor(), calcRandColor(), calcRandColor()};
+        rhombus.setOutlineColor(m_color);
+        rhombus.setOutlineThickness(2.f);
+        rhombus.setFillColor(getOpacityBgc());
+        rhombus.setRotation(45);
+        //rhombus.setScale(1.5f, 1.f);
+        m_x = getRandomNum(windowWidth, m_lineLength_rhombus);
+        m_y = getRandomNum(windowHeight, m_lineLength_rhombus);
+        rhombus.setPosition(m_x, m_y);
+    }
+    T getObject() override {
+        return this->rhombus;
+    }
+    void setObject(T temp) override {
+        this->rhombus = temp;
+    }
+    float getObjectSize() override {
+        return this->m_lineLength_rhombus;
+    }
+};

@@ -11,6 +11,8 @@ int main() {
     auto *ellipseArray = new tEllipse<sf::CircleShape>[QTY_FIGURES];
     auto *linesArray = new tLine<sf::RectangleShape>[QTY_FIGURES];
     auto *rectsArray = new tRect<sf::RectangleShape>[QTY_FIGURES];
+    auto *rhombusArray = new tRhombus<sf::RectangleShape>[QTY_FIGURES];
+    auto *triangleArray = new tTriangle<sf::CircleShape>[QTY_FIGURES];
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "tPoint");
     window.setFramerateLimit(60);
     sf::Event event{};
@@ -27,6 +29,8 @@ int main() {
                     ellipseArray[i].setRandomMovement();
                     linesArray[i].setRandomMovement();
                     rectsArray[i].setRandomMovement();
+                    rhombusArray[i].setRandomMovement();
+                    triangleArray[i].setRandomMovement();
                 }
             }
             if (event.key.code == sf::Keyboard::W) {
@@ -36,6 +40,8 @@ int main() {
                     ellipseArray[i].setNormalMovement();
                     linesArray[i].setNormalMovement();
                     rectsArray[i].setNormalMovement();
+                    rhombusArray[i].setNormalMovement();
+                    triangleArray[i].setNormalMovement();
                 }
             }
             if (event.type == sf::Event::Closed) {
@@ -54,6 +60,10 @@ int main() {
             window.draw(linesArray[i].getObject());
             rectsArray[i].setObject(rectsArray[i].objectMotion(rectsArray[i].getObject()));
             window.draw(rectsArray[i].getObject());
+            rhombusArray[i].setObject(rhombusArray[i].objectMotion(rhombusArray[i].getObject()));
+            window.draw(rhombusArray[i].getObject());
+            triangleArray[i].setObject(triangleArray[i].objectMotion(triangleArray[i].getObject()));
+            window.draw(triangleArray[i].getObject());
         }
         window.display();
     }
@@ -62,5 +72,7 @@ int main() {
     delete[] ellipseArray;
     delete[] linesArray;
     delete[] rectsArray;
+    delete[] rhombusArray;
+    delete[] triangleArray;
     return 0;
 }
