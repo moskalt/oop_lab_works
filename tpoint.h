@@ -191,19 +191,38 @@ public:
     }
 };
 
-//template<class T>
-//class tRect : public  tLine<sf::RectangleShape> {
-//private:
-//    T rect;
-//    float m_x;
-//    float m_y;
-//    sf::Color m_color;
-//    float m_ellipseRadius;
-//
-//public:
-//    tRect() {
-//    }
-//};
+template<class T>
+class tRect : public  tLine<sf::RectangleShape> {
+private:
+    T rect;
+    float m_x;
+    float m_y;
+    sf::Color m_color;
+    float m_lineLengh_rect = 70.f;
+    sf::Vector2f m_size = {40.f, m_lineLengh_rect};
+
+public:
+    tRect(){
+        rect.setSize(m_size);
+        m_color = {calcRandColor(), calcRandColor(), calcRandColor()};
+        rect.setOutlineColor(m_color);
+        rect.setOutlineThickness(2.f);
+        rect.setFillColor(getOpacityBgc());
+        rect.setRotation(rand() % 180);
+        m_x = getRandomNum(windowWidth, m_lineLengh_rect);
+        m_y = getRandomNum(windowHeight, m_lineLengh_rect);
+        rect.setPosition(m_x, m_y);
+    }
+    T getObject() override {
+        return this->rect;
+    }
+    void setObject(T temp) override {
+        this->rect = temp;
+    }
+    float getObjectSize() override {
+        return this->m_lineLengh_rect;
+    }
+};
 //
 //template<class T>
 //class tRhombus : public tLine<sf::RectangleShape> {

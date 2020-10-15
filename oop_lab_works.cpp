@@ -10,6 +10,7 @@ int main() {
     auto *circleArray = new tCircle<sf::CircleShape>[QTY_FIGURES];
     auto *ellipseArray = new tEllipse<sf::CircleShape>[QTY_FIGURES];
     auto *linesArray = new tLine<sf::RectangleShape>[QTY_FIGURES];
+    auto *rectsArray = new tRect<sf::RectangleShape>[QTY_FIGURES];
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "tPoint");
     window.setFramerateLimit(60);
     sf::Event event{};
@@ -25,6 +26,7 @@ int main() {
                     circleArray[i].setRandomMovement();
                     ellipseArray[i].setRandomMovement();
                     linesArray[i].setRandomMovement();
+                    rectsArray[i].setRandomMovement();
                 }
             }
             if (event.key.code == sf::Keyboard::W) {
@@ -33,6 +35,7 @@ int main() {
                     circleArray[i].setNormalMovement();
                     ellipseArray[i].setNormalMovement();
                     linesArray[i].setNormalMovement();
+                    rectsArray[i].setNormalMovement();
                 }
             }
             if (event.type == sf::Event::Closed) {
@@ -49,6 +52,8 @@ int main() {
             window.draw(ellipseArray[i].getObject());
             linesArray[i].setObject(linesArray[i].objectMotion(linesArray[i].getObject()));
             window.draw(linesArray[i].getObject());
+            rectsArray[i].setObject(rectsArray[i].objectMotion(rectsArray[i].getObject()));
+            window.draw(rectsArray[i].getObject());
         }
         window.display();
     }
@@ -56,5 +61,6 @@ int main() {
     delete[] pointsArray;
     delete[] ellipseArray;
     delete[] linesArray;
+    delete[] rectsArray;
     return 0;
 }
