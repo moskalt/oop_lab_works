@@ -5,22 +5,23 @@
 #include <iostream>
 const int windowWidth = 1200;
 const int windowHeight = 700;
-sf::Color getOpacityBgc() {
-    sf::Color opacityBgc = {0, 0, 0, 1};
-    return opacityBgc;
-}
 
 template<class T>
-class figure {
+class tFigure {
 private:
     sf::Vector2f m_movementVar = {4.0, 0.0};
+    float rotationDeg = 0;
     float m_size;
 
 public:
-    figure() {
+    tFigure() {
         m_size = 0;
     }
     // static methods
+    static sf::Color getOpacityBgc() {
+        sf::Color opacityBgc = {0, 0, 0, 1};
+        return opacityBgc;
+    }
     static sf::Uint8 calcRandColor() {
         return rand() % 256;
     }
@@ -48,6 +49,11 @@ public:
         return this->m_size;
     }
     // motion
+    T objectRotation(T object) {
+        this->rotationDeg += 6;
+        object.setRotation(rotationDeg);
+        return object;
+    }
     T objectMotion(T object) {
         sf::Vector2f currentPosition = object.getPosition();
         if (currentPosition.x > windowWidth - this->getObjectSize() * 2 || currentPosition.x <= 0) {
@@ -62,7 +68,7 @@ public:
 };
 
 template<class T>
-class tPoint : public figure<sf::CircleShape> {
+class tPoint : public tFigure<sf::CircleShape> {
 private:
     // members
     T m_point;
@@ -81,14 +87,14 @@ public:
         m_point.setPosition(m_x, m_y);
     };
     // virtual methods
-    float getObjectSize() override {
-        return this->m_pointRadius;
-    }
     virtual sf::CircleShape getObject() {
         return this->m_point;
     }
     virtual void setObject(T temp) {
         this->m_point = temp;
+    }
+    float getObjectSize() override {
+        return this->m_pointRadius;
     }
     // getters
     float getPointRadius() {
@@ -195,7 +201,7 @@ public:
 
 
 template<class T>
-class tLine : public figure<sf::RectangleShape> {
+class tLine : public tFigure<sf::RectangleShape> {
 private:
     T line;
     float m_x;
@@ -226,7 +232,7 @@ public:
 };
 
 template<class T>
-class tRect : public  tLine<sf::RectangleShape> {
+class tRect : public tLine<sf::RectangleShape> {
 private:
     T rect;
     float m_x;
@@ -236,7 +242,7 @@ private:
     sf::Vector2f m_size = {40.f, m_lineLength_rect};
 
 public:
-    tRect(){
+    tRect() {
         rect.setSize(m_size);
         m_color = {calcRandColor(), calcRandColor(), calcRandColor()};
         rect.setOutlineColor(m_color);
