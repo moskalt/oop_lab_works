@@ -229,6 +229,10 @@ public:
     float getObjectSize() override {
         return this->m_lineLength;
     }
+    // getters
+    float getLineLength() {
+        return this->m_lineLength;
+    }
 };
 
 template<class T>
@@ -238,7 +242,7 @@ private:
     float m_x;
     float m_y;
     sf::Color m_color;
-    float m_lineLength_rect = 70.f;
+    float m_lineLength_rect = getLineLength();
     sf::Vector2f m_size = {40.f, m_lineLength_rect};
 
 public:
@@ -271,7 +275,7 @@ private:
     float m_x;
     float m_y;
     sf::Color m_color;
-    float m_lineLength_rhombus = 50.f;
+    float m_lineLength_rhombus = getLineLength();
     sf::Vector2f m_size{m_lineLength_rhombus, m_lineLength_rhombus};
 
 public:
@@ -282,7 +286,6 @@ public:
         rhombus.setOutlineThickness(2.f);
         rhombus.setFillColor(getOpacityBgc());
         rhombus.setRotation(45);
-        //rhombus.setScale(1.5f, 1.f);
         m_x = getRandomNum(windowWidth, m_lineLength_rhombus);
         m_y = getRandomNum(windowHeight, m_lineLength_rhombus);
         rhombus.setPosition(m_x, m_y);
