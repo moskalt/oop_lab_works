@@ -1,6 +1,7 @@
 #include "tpoint.h"
 #include <iostream>
 #define QTY_FIGURES 10
+#include <vector>
 
 int main() {
     sf::ContextSettings settings;
