@@ -19,6 +19,7 @@ int main() {
     double elapsedTime;
     while (window.isOpen()) {
         elapsedTime = clock.getElapsedTime().asMicroseconds() / 1000000.0;
+        clock.restart();
         while (window.pollEvent(event)) {
             if (event.key.code == sf::Keyboard::Escape) {
                 window.close();
