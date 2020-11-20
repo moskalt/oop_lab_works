@@ -1,101 +1,57 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <cstdlib>
-#include <ctime>
 #include <iostream>
 const int windowWidth = 1200;
-const int windowHeight = 700;
-const int SPEED = 500;
-const int SPEED_ROTATION = 500;
+const int windowHeight = 800;
+
 using namespace sf;
 
-class Point {
-public:
-    float x;
-    float y;
-
-public:
-    explicit Point(float x = 0, float y = 0) : x(x),
-                                               y(y) {}
-};
-
 class tFigure {
-protected:
-    double x;
-    double y;
-    int directionOfRotation;
-    int dir;
-    double r{};
-
+private:
 public:
-    explicit tFigure(double x = 0, double y = 0) : x(x),
-                                                   y(y) {
-        directionOfRotation = ((rand() % 2) == 0 ? -1 : 1);
-        dir = rand() % 4;
+    // static methods
+    static sf::Color getOpacityBgc() {
+        sf::Color opacityBgc = {0, 0, 0, 1};
+        return opacityBgc;
     }
-    explicit tFigure(Point point) : tFigure(point.x, point.y) {}
-
-    virtual void setRandomColor() = 0;
-    virtual void draw(RenderWindow &window) = 0;
-    virtual void linearMotion(double &elapsedTime) = 0;
-    virtual void rotation(double &elapsedTime) = 0;
-    void newpos(double &elapsedTime, int w, int h) {
-        if (dir == 0) {
-            y -= SPEED * elapsedTime;
-            if (y < 0) {
-                y = 0;
-                dir = 1;
-            }
-        } else if (dir == 1) {
-            y += SPEED * elapsedTime;
-            if (y > (windowHeight - 8)) {
-                y = (windowHeight - 8);
-                dir = 0;
-            }
-        } else if (dir == 2) {
-            x -= SPEED * elapsedTime;
-            if (x < 0) {
-                x = 0;
-                dir = 3;
-            }
-        } else {
-            x += SPEED * elapsedTime;
-            if (x > (windowWidth - 8)) {
-                x = (windowWidth - 8);
-                dir = 2;
-            }
+    static sf::Uint8 calcRandColor() {
+        return rand() % 256;
+    }
+    static float getRandomNum(int windowSize, float size) {
+        size *= 1.2;
+        auto res = (float) (rand() % windowSize);
+        if (res <= size) {
+            res += size;
+        } else if (res >= (float) windowSize - size * 2) {
+            res -= size * 2;
         }
+        return res;
     }
+    virtual CircleShape getObject() = 0;
+    virtual void movement() = 0;
 };
 
-class Line : public tFigure {
+class tPoint : public tFigure {
 private:
-    Point a;
-    RectangleShape line;
-    int length;
+    CircleShape circle;
+    sf::Color m_PointColor;
+    float m_pointRadius = 10.f;
+    float m_x;
+    float m_y;
 
 public:
-    explicit Line(float x = 0, float y = 0, int length = 0, float alpha = 0) : tFigure(x, y),
-                                                                               a(x, y),
-                                                                               length(length) {
-        line.setSize(Vector2f(length, 1));
-        line.setOrigin(length / 2.0, 0.5);
-        line.setRotation(alpha);
-        line.setPosition(x, y);
+    tPoint() {
+        m_PointColor = {calcRandColor(), calcRandColor(), calcRandColor()};
+        m_x = getRandomNum(windowWidth, m_pointRadius);
+        m_y = getRandomNum(windowHeight, m_pointRadius);
+        circle.setFillColor(m_PointColor);
+        circle.setRadius(m_pointRadius);
+        circle.setPosition(m_x, m_y);
     }
-    explicit Line(Point point, int length = 0, float alpha = 0) : Line(point.x, point.y, length, alpha) {}
-
-    void setRandomColor() override {
-        line.setFillColor(Color(rand() % 256, rand() % 256, rand() % 256));
+    void movement() override {
+        circle.move(4, 4);
     }
-    void draw(RenderWindow &window) override {
-        window.draw(line);
-    }
-    void rotation(double &elapsedTime) override {
-        line.rotate(elapsedTime * SPEED_ROTATION * directionOfRotation);
-    }
-    void linearMotion(double &elapsedTime) override {
-        newpos(elapsedTime, length, length);
-        line.setPosition(x, y);
+    virtual CircleShape getObject() {
+        return this->circle;
     }
 };
