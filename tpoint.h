@@ -6,6 +6,31 @@ const int windowHeight = 800;
 
 using namespace sf;
 
+enum objects { varCircle,
+               varRect };
+
+struct object_type {
+    objects type;
+    union {
+        sf::RectangleShape rect;
+        sf::CircleShape circle;
+    };
+    object_type(CircleShape _circle) : type(varCircle), circle(_circle) {}
+    object_type(RectangleShape _rect) : type(varRect), rect(_rect) {}
+
+     object_type writeTo() {
+        switch (type) {
+            case varCircle:
+                return circle;
+                break;
+            case varRect:
+                return rect;
+                break;
+        }
+    }
+};
+
+
 class tFigure {
 private:
 public:
@@ -27,7 +52,7 @@ public:
         }
         return res;
     }
-    virtual CircleShape getObject() = 0;
+    virtual object_type getObject(void) = 0;
     virtual void movement() = 0;
 };
 
@@ -37,7 +62,7 @@ private:
     sf::Color m_PointColor;
     float m_pointRadius = 10.f;
     float m_x;
-    float m_y ;
+    float m_y;
 
 public:
     tPoint() {
@@ -51,7 +76,7 @@ public:
     void movement() override {
         circle.move(4, 4);
     }
-    CircleShape getObject() override {
-        return this->circle;
+    object_type getObject(void) override {
+        return object_type(this->circle);
     }
 };

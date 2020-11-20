@@ -10,9 +10,9 @@ int main() {
     window.setFramerateLimit(60);
     sf::Event event{};
     sf::Clock timer;
-    std::vector<tFigure *> vector(QTY_FIGURES); 
+    std::vector<tFigure*> vector; 
     for (int i = 0; i < QTY_FIGURES; i++) {
-        (vector[i]) = new tPoint();
+        vector.push_back( new tPoint());
     }
     while (window.isOpen()) {
         while (window.pollEvent(event)) {
@@ -26,6 +26,7 @@ int main() {
         window.clear(sf::Color::Black);
         for (int i = 0; i < QTY_FIGURES; ++i) {
             window.draw((vector[i])->getObject());
+            vector[i]->movement();
         }
         window.display();
     }
