@@ -1,6 +1,7 @@
 #include "tpoint.h"
 #include <iostream>
-#define QTY_FIGURES 100
+#include <vector>
+#define QTY_FIGURES 10
 
 int main() {
     sf::ContextSettings settings;
@@ -9,10 +10,9 @@ int main() {
     window.setFramerateLimit(60);
     sf::Event event{};
     sf::Clock timer;
-    auto arr = new tFigure *[QTY_FIGURES];
-    for (int i = 0; i < QTY_FIGURES; ++i) {
-        tPoint point;
-        arr[i] = &point;
+    std::vector<tFigure *> vector(QTY_FIGURES); 
+    for (int i = 0; i < QTY_FIGURES; i++) {
+        (vector[i]) = new tPoint();
     }
     while (window.isOpen()) {
         while (window.pollEvent(event)) {
@@ -25,9 +25,7 @@ int main() {
         }
         window.clear(sf::Color::Black);
         for (int i = 0; i < QTY_FIGURES; ++i) {
-            tPoint ppoint;
-            //            window.draw(arr[i]->getObject());
-            window.draw(ppoint.getObject());
+            window.draw((vector[i])->getObject());
         }
         window.display();
     }

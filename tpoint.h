@@ -37,7 +37,7 @@ private:
     sf::Color m_PointColor;
     float m_pointRadius = 10.f;
     float m_x;
-    float m_y;
+    float m_y ;
 
 public:
     tPoint() {
@@ -51,7 +51,7 @@ public:
     void movement() override {
         circle.move(4, 4);
     }
-    virtual CircleShape getObject() {
+    CircleShape getObject() override {
         return this->circle;
     }
 };
