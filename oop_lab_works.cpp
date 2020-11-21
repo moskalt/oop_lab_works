@@ -1,7 +1,7 @@
 #include "tpoint.h"
 #include <iostream>
 #include <vector>
-#define QTY_FIGURES 10
+#define QTY_FIGURES 5
 
 int main() {
     sf::ContextSettings settings;
@@ -13,9 +13,13 @@ int main() {
     sf::Clock timer;
     std::vector<tFigure*> vector; 
     for (int i = 0; i < QTY_FIGURES; i++) {
-        vector.push_back( new tPoint());
+        vector.push_back(new tPoint());
         vector.push_back(new tCircle(sf::Color::Green));
-        vector.push_back(new tEllipse());
+        vector.push_back(new tEllipse(2));
+        vector.push_back(new tRect());
+        vector.push_back(new tRhombus());
+        vector.push_back(new tLine());
+        vector.push_back(new tTriangle);
     }
     while (window.isOpen()) {
         while (window.pollEvent(event)) {

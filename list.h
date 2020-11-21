@@ -2,7 +2,6 @@
 #include "tpoint.h"
 #include <iostream>
 
-
 class List {
 protected:
     struct vertex {
@@ -12,7 +11,6 @@ protected:
     vertex *ptr_root = nullptr;
     vertex *ptr_tail = nullptr;
 };
-
 
 class Queue : public List {
 public :

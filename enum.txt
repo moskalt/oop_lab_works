@@ -1,0 +1,14 @@
+//enum objects { varCircle,
+//               varRect };
+//
+//struct object_type {
+//    objects type;
+//    union {
+//        sf::RectangleShape rect;
+//        sf::CircleShape circle;
+//    };
+//    object_type(CircleShape _circle) : type(varCircle), circle(_circle) {
+//    }
+//    object_type(RectangleShape _rect) : type(varRect), rect(_rect) {
+//    }
+//};
