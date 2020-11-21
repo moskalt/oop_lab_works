@@ -84,18 +84,16 @@ private:
     float m_y;
 
 public:
-    tPoint() {
-        m_PointColor = {calcRandColor(), calcRandColor(), calcRandColor()};
-        m_x = getRandomNum(windowWidth, m_pointRadius);
-        m_y = getRandomNum(windowHeight, m_pointRadius);
+    tPoint() : m_PointColor({calcRandColor(), calcRandColor(), calcRandColor()}),
+               m_x(getRandomNum(windowWidth, m_pointRadius)),
+               m_y(getRandomNum(windowHeight, m_pointRadius)) {
         circle.setFillColor(m_PointColor);
         circle.setRadius(m_pointRadius);
         circle.setPosition(m_x, m_y);
     }
-    explicit tPoint(Color color) {
-        m_PointColor = color;
-        m_x = getRandomNum(windowWidth, m_pointRadius);
-        m_y = getRandomNum(windowHeight, m_pointRadius);
+    explicit tPoint(Color color) : m_PointColor(color),
+                                   m_x(getRandomNum(windowWidth, m_pointRadius)),
+                                   m_y(getRandomNum(windowHeight, m_pointRadius)) {
         circle.setFillColor(m_PointColor);
         circle.setRadius(m_pointRadius);
         circle.setPosition(m_x, m_y);
@@ -124,20 +122,18 @@ private:
     float m_y;
 
 public:
-    tCircle() {
-        m_circleColor = {calcRandColor(), calcRandColor(), calcRandColor()};
-        m_x = getRandomNum(windowWidth, m_circleRadius);
-        m_y = getRandomNum(windowHeight, m_circleRadius);
+    tCircle() : m_circleColor({calcRandColor(), calcRandColor(), calcRandColor()}),
+                m_x(getRandomNum(windowWidth, m_circleRadius)),
+                m_y(getRandomNum(windowHeight, m_circleRadius)) {
         circle.setFillColor(getOpacityBgc());
         circle.setOutlineColor(m_circleColor);
         circle.setOutlineThickness(2.f);
         circle.setRadius(m_circleRadius);
         circle.setPosition(m_x, m_y);
     }
-    explicit tCircle(Color color) {
-        m_circleColor = color;
-        m_x = getRandomNum(windowWidth, m_circleRadius);
-        m_y = getRandomNum(windowHeight, m_circleRadius);
+    explicit tCircle(Color color) : m_circleColor(color),
+                                    m_x(getRandomNum(windowWidth, m_circleRadius)),
+                                    m_y(getRandomNum(windowHeight, m_circleRadius)) {
         circle.setFillColor(getOpacityBgc());
         circle.setOutlineColor(m_circleColor);
         circle.setOutlineThickness(2.f);
@@ -165,14 +161,15 @@ private:
     float m_x;
     float m_y;
     Color m_ellipseColor;
-    float m_ellipseRadius = 40.f;
-    float m_scale = 1.5f;
+    float m_ellipseRadius;
+    float m_scale;
 
 public:
-    tEllipse() {
-        m_ellipseColor = {calcRandColor(), calcRandColor(), calcRandColor()};
-        m_x = getRandomNum(windowWidth, m_ellipseRadius);
-        m_y = getRandomNum(windowHeight, m_ellipseRadius);
+    tEllipse() : m_ellipseColor({calcRandColor(), calcRandColor(), calcRandColor()}),
+                 m_ellipseRadius(40.f),
+                 m_x(getRandomNum(windowWidth, 40.f)),
+                 m_scale(1.5f),
+                 m_y(getRandomNum(windowHeight, 40.f)) {
         ellipse.setFillColor(getOpacityBgc());
         ellipse.setOutlineColor(m_ellipseColor);
         ellipse.setOutlineThickness(2.f);
@@ -180,10 +177,11 @@ public:
         ellipse.setScale(m_scale, 1.1f);
         ellipse.setPosition(m_x, m_y);
     }
-    explicit tEllipse(float scale, Color color = Color::Blue) {
-        m_ellipseColor = {calcRandColor(), calcRandColor(), calcRandColor()};
-        m_x = getRandomNum(windowWidth, m_ellipseRadius);
-        m_y = getRandomNum(windowHeight, m_ellipseRadius);
+    explicit tEllipse(float scale, Color color = Color::Blue) : m_ellipseColor({calcRandColor(), calcRandColor(), calcRandColor()}),
+                                                                m_ellipseRadius(40.f),
+                                                                m_x(getRandomNum(windowWidth, 40.f)),
+                                                                m_scale(1.5f),
+                                                                m_y(getRandomNum(windowHeight, 40.f)) {
         ellipse.setFillColor(getOpacityBgc());
         ellipse.setOutlineColor(color);
         ellipse.setOutlineThickness(2.f);
@@ -212,13 +210,13 @@ private:
     float m_x;
     float m_y;
     Color m_rectColor;
-    float m_rectSize = 40.f;
+    float m_rectSize;
 
 public:
-    tRect() {
-        m_rectColor = {calcRandColor(), calcRandColor(), calcRandColor()};
-        m_x = getRandomNum(windowWidth, m_rectSize);
-        m_y = getRandomNum(windowHeight, m_rectSize);
+    tRect() : m_rectColor({calcRandColor(), calcRandColor(), calcRandColor()}),
+              m_rectSize(40.f),
+              m_x(getRandomNum(windowWidth, 40.f)),
+              m_y(getRandomNum(windowHeight, 40.f)) {
         rect.setFillColor(getOpacityBgc());
         rect.setOutlineColor(m_rectColor);
         rect.setOutlineThickness(2.f);
@@ -248,13 +246,13 @@ private:
     float m_x;
     float m_y;
     Color m_rhombusColor;
-    float m_rhombusSize = 25.f;
+    float m_rhombusSize;
 
 public:
-    tRhombus() {
-        m_rhombusColor = {calcRandColor(), calcRandColor(), calcRandColor()};
-        m_x = getRandomNum(windowWidth, m_rhombusSize);
-        m_y = getRandomNum(windowHeight, m_rhombusSize);
+    tRhombus() : m_rhombusColor({calcRandColor(), calcRandColor(), calcRandColor()}),
+                 m_x(getRandomNum(windowWidth, 25.f)),
+                 m_y(getRandomNum(windowHeight, 25.f)),
+                 m_rhombusSize(25.f) {
         rhombus.setFillColor(getOpacityBgc());
         rhombus.setOutlineColor(m_rhombusColor);
         rhombus.setOutlineThickness(2.f);
@@ -283,13 +281,13 @@ private:
     float m_x;
     float m_y;
     Color m_lineColor;
-    float m_lineSize = 40.f;
+    float m_lineSize;
 
 public:
-    tLine() {
-        m_lineColor = {calcRandColor(), calcRandColor(), calcRandColor()};
-        m_x = getRandomNum(windowWidth, m_lineSize);
-        m_y = getRandomNum(windowHeight, m_lineSize);
+    tLine() : m_lineColor({calcRandColor(), calcRandColor(), calcRandColor()}),
+              m_x(getRandomNum(windowWidth, 40.f)),
+              m_y(getRandomNum(windowHeight, 40.f)),
+              m_lineSize(40.f) {
         line.setFillColor(getOpacityBgc());
         line.setOutlineColor(m_lineColor);
         line.setOutlineThickness(2.f);
@@ -319,13 +317,13 @@ private:
     float m_x;
     float m_y;
     Color m_triangleColor;
-    float m_triangleSize = 80.f;
+    float m_triangleSize;
 
 public:
-    tTriangle() {
-        m_triangleColor = {calcRandColor(), calcRandColor(), calcRandColor()};
-        m_x = getRandomNum(windowWidth, m_triangleSize);
-        m_y = getRandomNum(windowHeight, m_triangleSize);
+    tTriangle() : m_triangleColor({calcRandColor(), calcRandColor(), calcRandColor()}),
+                  m_x(getRandomNum(windowWidth, 80.f)),
+                  m_y(getRandomNum(windowHeight, 80.f)),
+                  m_triangleSize(80.f) {
         triangle.setFillColor(getOpacityBgc());
         triangle.setOutlineColor(m_triangleColor);
         triangle.setOutlineThickness(2.f);
