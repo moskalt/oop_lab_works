@@ -1,6 +1,10 @@
+#include "list.h"
 #include "tpoint.h"
+#include <iostream>
 #include <vector>
-#define QTY_FIGURES 5
+#define QTY_FIGURES 1
+
+int List::qtyLists = 0;
 
 int main() {
     sf::ContextSettings settings;
@@ -10,16 +14,26 @@ int main() {
     window.setFramerateLimit(60);
     sf::Event event{};
     sf::Clock timer;
-    std::vector<tFigure*> vector; 
+    Queue tQueue;
+    Stack tStack;
     for (int i = 0; i < QTY_FIGURES; i++) {
-        vector.push_back(new tPoint());
-        vector.push_back(new tCircle(sf::Color::Green));
-        vector.push_back(new tEllipse(2));
-        vector.push_back(new tRect());
-        vector.push_back(new tRhombus());
-        vector.push_back(new tLine());
-        vector.push_back(new tTriangle);
+        tQueue.addItem(new tPoint());
+        tQueue.addItem(new tCircle());
+        tQueue.addItem(new tEllipse());
+        tQueue.addItem(new tRect());
+        tQueue.addItem(new tRhombus());
+        tQueue.addItem(new tLine());
+        tQueue.addItem(new tTriangle());
+        tStack.addItem(new tPoint());
+        tStack.addItem(new tCircle());
+        tStack.addItem(new tEllipse());
+        tStack.addItem(new tRect());
+        tStack.addItem(new tRhombus());
+        tStack.addItem(new tLine());
+        tStack.addItem(new tTriangle());
     }
+    std::cout << tQueue.getQTY() << std::endl;
+    std::cout << tStack.getQTY() << std::endl;
     while (window.isOpen()) {
         while (window.pollEvent(event)) {
             if (event.key.code == sf::Keyboard::Escape) {
@@ -29,20 +43,42 @@ int main() {
                 window.close();
             }
             if (event.key.code == sf::Keyboard::W) {
-                for (auto& item : vector) {
-                    item->setRandomMovement();
+                vertex *tempHead = tQueue.getHead();
+                while (tempHead != nullptr) {
+                    tempHead->object->setRandomMovement();
+                    tempHead = tempHead->ptr_next;
+                }
+                tempHead = tStack.getHead();
+                while (tempHead != nullptr) {
+                    tempHead->object->setRandomMovement();
+                    tempHead = tempHead->ptr_next;
                 }
             }
             if (event.key.code == sf::Keyboard::Q) {
-                for (auto& item : vector) {
-                    item->setLinearMovement();
+                vertex *tempHead = tQueue.getHead();
+                while (tempHead != nullptr) {
+                    tempHead->object->setLinearMovement();
+                    tempHead = tempHead->ptr_next;
+                }
+                tempHead = tStack.getHead();
+                while (tempHead != nullptr) {
+                    tempHead->object->setRandomMovement();
+                    tempHead = tempHead->ptr_next;
                 }
             }
         }
         window.clear(sf::Color::Black);
-        for (auto &item: vector) {
-            window.draw(item->getObject());
-            item->movement();
+        vertex *tempHead = tQueue.getHead();
+        while (tempHead != nullptr) {
+            window.draw(tempHead->object->getObject());
+            tempHead->object->movement();
+            tempHead = tempHead->ptr_next;
+        }
+        tempHead = tStack.getHead();
+        while (tempHead != nullptr) {
+            window.draw(tempHead->object->getObject());
+            tempHead->object->movement();
+            tempHead = tempHead->ptr_next;
         }
         window.display();
     }
