@@ -1,5 +1,4 @@
 #include "tpoint.h"
-#include <iostream>
 #include <vector>
 #define QTY_FIGURES 5
 
