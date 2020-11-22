@@ -2,7 +2,7 @@
 #include "tpoint.h"
 #include <iostream>
 #include <vector>
-#define QTY_FIGURES 1
+#define QTY_FIGURES 3
 
 int List::qtyLists = 0;
 
@@ -17,20 +17,37 @@ int main() {
     Queue tQueue;
     Stack tStack;
     for (int i = 0; i < QTY_FIGURES; i++) {
-        tQueue.addItem(new tPoint());
-        tQueue.addItem(new tCircle());
-        tQueue.addItem(new tEllipse());
-        tQueue.addItem(new tRect());
-        tQueue.addItem(new tRhombus());
-        tQueue.addItem(new tLine());
-        tQueue.addItem(new tTriangle());
-        tStack.addItem(new tPoint());
-        tStack.addItem(new tCircle());
-        tStack.addItem(new tEllipse());
-        tStack.addItem(new tRect());
-        tStack.addItem(new tRhombus());
-        tStack.addItem(new tLine());
-        tStack.addItem(new tTriangle());
+        try {
+            tStack.addItem(new tPoint());
+            tStack.addItem(new tCircle());
+            tStack.addItem(new tEllipse());
+            tStack.addItem(new tRect());
+            tStack.addItem(new tRhombus());
+            tStack.addItem(new tLine());
+            tStack.addItem(new tTriangle());
+            if (tStack.getHead() == nullptr) {
+                throw -1;
+            }
+        }
+        catch (int) {
+            std::cout << "Exception filling stack..." << std::endl;
+            return 1;
+        }
+        try {
+            tQueue.addItem(new tPoint());
+            tQueue.addItem(new tCircle());
+            tQueue.addItem(new tEllipse());
+            tQueue.addItem(new tRect());
+            tQueue.addItem(new tRhombus());
+            tQueue.addItem(new tLine());
+            tQueue.addItem(new tTriangle());
+            if (tQueue.getHead() == nullptr) {
+                throw -1;
+            }
+        } catch (int) {
+            std::cout << "Exception filling queue..." << std::endl;
+            return 1;
+        }
     }
     std::cout << tQueue.getQTY() << std::endl;
     std::cout << tStack.getQTY() << std::endl;
